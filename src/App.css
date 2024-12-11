@@ -20,43 +20,53 @@ body {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%; /* Adjusted for mobile width */
+  max-width: 400px; /* Limits the width on larger screens */
 }
 
-.title {
+.title1 {
   font-size: 1.5rem;
   margin-bottom: 20px;
   color: #333;
+}
+.timer {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: red;
 }
 
 .buttons {
   display: flex;
   justify-content: center;
-  gap: 20px;  /* Increased gap between buttons */
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
 }
 
 .button {
-  padding: 15px 30px;  /* Increased size */
-  font-size: 1.2rem;  /* Increased font size */
+  padding: 15px 30px;
+  font-size: 1.2rem;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 200px;  /* Fixed button width */
+  width: 100%; /* Full width for mobile view */
+  max-width: 180px; /* Limits width of buttons */
 }
 
 .button:hover {
-  opacity: 0.8;  /* Slight opacity change on hover */
+  opacity: 0.8;
 }
 
 /* Specific button colors */
 .button.ya {
-  background-color: #28a745;  /* Green */
+  background-color: #28a745; /* Green */
 }
 
 .button.tidak {
-  background-color: #dc3545;  /* Red */
-  transition: all 0.5s ease;  /* Smooth transition for movement */
+  background-color: #dc3545; /* Red */
+  transition: all 0.5s ease;
 }
 
 /* Mobile responsive design */
@@ -66,7 +76,12 @@ body {
   }
 
   .buttons {
-    flex-direction: column;
+    flex-direction: column; /* Stack buttons vertically */
     gap: 15px;
+  }
+
+  .button {
+    width: 100%; /* Make buttons span the full width */
+    max-width: none; /* Remove max width for stacked buttons */
   }
 }
