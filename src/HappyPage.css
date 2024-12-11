@@ -1,0 +1,43 @@
+/* App.css or HappyPage.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8ff; /* Light blue background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    text-align: center;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #007bff; /* Blue button */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
