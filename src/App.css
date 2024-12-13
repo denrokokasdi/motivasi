@@ -11,17 +11,17 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f4f4f4;
+  background-color: whitesmoke;
 }
 
 .container {
   text-align: center;
   padding: 20px;
-  background-color: white;
+  background-color: red;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 90%; /* Adjusted for mobile width */
-  max-width: 400px; /* Limits the width on larger screens */
+  width: 90%;
+  max-width: 400px; /* Ensures a compact layout on larger screens */
 }
 
 .title1 {
@@ -29,6 +29,7 @@ body {
   margin-bottom: 20px;
   color: #333;
 }
+
 .timer {
   font-size: 2rem;
   margin-bottom: 20px;
@@ -44,15 +45,15 @@ body {
 }
 
 .button {
-  padding: 15px 30px;
+  padding: 15px 20px;
   font-size: 1.2rem;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%; /* Full width for mobile view */
-  max-width: 180px; /* Limits width of buttons */
+  transition: all 0.3s ease;
+  min-width: 120px; /* Consistent minimum button width */
+  text-align: center;
 }
 
 .button:hover {
@@ -66,13 +67,22 @@ body {
 
 .button.tidak {
   background-color: #dc3545; /* Red */
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
 
 /* Mobile responsive design */
 @media (max-width: 600px) {
-  .title {
-    font-size: 1.2rem;
+  .container {
+    width: 100%; /* Use full width for smaller devices */
+    max-width: 90%; /* Add a bit of padding on mobile */
+  }
+
+  .title1 {
+    font-size: 2.2rem;
+  }
+
+  .timer {
+    font-size: 1.5rem;
   }
 
   .buttons {
@@ -82,6 +92,6 @@ body {
 
   .button {
     width: 100%; /* Make buttons span the full width */
-    max-width: none; /* Remove max width for stacked buttons */
+    max-width: none; /* Remove max-width for stacked buttons */
   }
 }
