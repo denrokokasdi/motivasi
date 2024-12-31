@@ -48,9 +48,10 @@ def send_whatsapp(phone_number, details, id):
         time.sleep(1)
         if 'success' in pyperclip.paste():
             print("Successfully sent WhatsApp message")
-            update_whatsapp_sent_status(id)
+            update_whatsapp_sent_status(id, True)
         else:
             print("Message sending failed")
+            update_whatsapp_sent_status(id, False)
         
         # Close the WhatsApp tab
         pyautogui.hotkey('ctrl', 'w')
@@ -108,11 +109,11 @@ def update_whatsapp_status(id_customer):
         print(f"Error updating WhatsApp status: {e}")
         return None
 
-def update_whatsapp_sent_status(id_customer):
+def update_whatsapp_sent_status(id_customer, result):
     """Update the 'whatsapp' status to True for a specific record."""
     try:
         update_data = {
-            "whatsapp_sent": True
+            "whatsapp_sent": result
         }
         response = requests.patch(
             f"{SUPABASE_URL}/rest/v1/{TABLE_NAME}?id=eq.{id_customer}",
