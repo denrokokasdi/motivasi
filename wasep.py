@@ -78,10 +78,10 @@ def fetch_all_data():
                 details_customer = each_data["json"]
                 id_customer = each_data["id"]
                 
-                if not whatsapp_notify:
+                if not whatsapp_notify and not whatsapp_sent:
                     # Send WhatsApp message
                     send_whatsapp(customer_phone, details_customer, id_customer)
-
+                    
             except KeyError as e:
                 print(f"Key error processing data: {e}")
             except Exception as e:
@@ -89,7 +89,7 @@ def fetch_all_data():
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data from Supabase: {e}")
     except Exception as e:
-        
+        print(f"Unexpected error: {e}")
 
 def update_whatsapp_status(id_customer):
     """Update the 'whatsapp' status to True for a specific record."""
