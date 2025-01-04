@@ -5,6 +5,13 @@ import pyautogui
 import warnings
 import urllib3
 import pyperclip
+import os
+import win32clipboard
+from PIL import Image
+import io
+import os
+from pathlib import Path
+
 
 # Suppress SSL warnings
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -22,22 +29,33 @@ headers = {
 }
 
 def format_details(details):
-    """Format the JSON details into a user-friendly string."""
-    return "\n".join(f"{key}: {value}" for key, value in details.items())
+    """Format the JSON details into a user-friendly string with capitalized keys."""
+    return "\n".join(f"*{key.capitalize()}*: {value}" for key, value in details.items())
 
 def send_whatsapp(phone_number, details, id):
     """Send a WhatsApp message using pywhatkit."""
     try:
         phone_number = f"+6{phone_number}"  # Add country code
         formatted_details = format_details(details)
-        message = f"Kami telah menerima tempahan anda order number dengan details tersebut:\n{formatted_details}"
-        
+        message = f"Hi💕! Thank you for your purchase!\n\nKami telah menerima tempahan anda order number dengan details tersebut😀😘:\n\n{formatted_details}"
         pywhatkit.sendwhatmsg_instantly(phone_number, message)
         time.sleep(30)  # Adjust this if your system/browser is slower
         pyautogui.press("enter")
-        
-        # Check if the message was sent successfully
+
+        time.sleep(2)
+        img1 = Path.home() / 'Downloads' / 'image1.jpg'
+        copy_paste_image_to_clipboard(img1)
+        time.sleep(2)
+        pyautogui.press("enter")
+
+        time.sleep(5)
+        message2 = f"Untuk Tracking Number, kami akan update secepat mungkin🌟 atau boleh pergi ke portal kami di https://www.aiziramalaysia.com/TrackingNumber untuk menyemak tracking number anda 📦 (Available selepas beberapa jam)"
+        pyautogui.write(message2)
         time.sleep(1)
+        pyautogui.press("enter")
+
+        # Check if the message was sent successfully
+        time.sleep(2)
         pyperclip.copy('')
         time.sleep(1)
         pyautogui.write("success")
@@ -46,6 +64,7 @@ def send_whatsapp(phone_number, details, id):
         time.sleep(1)
         pyautogui.hotkey('ctrl', 'c')
         time.sleep(1)
+        update_whatsapp_status(id)
         if 'success' in pyperclip.paste():
             print("Successfully sent WhatsApp message")
             update_whatsapp_sent_status(id, True)
@@ -53,10 +72,11 @@ def send_whatsapp(phone_number, details, id):
             print("Message sending failed")
             update_whatsapp_sent_status(id, False)
         
-        # Close the WhatsApp tab
-        pyautogui.hotkey('ctrl', 'w')
+        # Kill all Chrome processes
+        #os.system("taskkill /f /im chrome.exe")  # Windows command to kill Chrome
+        print("All Chrome processes killed!")
         time.sleep(1)
-        print("Window closed!")
+        pyperclip.copy('')
     except Exception as e:
         print(f"Error sending WhatsApp message: {e}")
 
@@ -79,7 +99,7 @@ def fetch_all_data():
                 details_customer = each_data["json"]
                 id_customer = each_data["id"]
                 
-                if not whatsapp_notify and not whatsapp_sent:
+                if not whatsapp_notify and whatsapp_sent == False:
                     # Send WhatsApp message
                     send_whatsapp(customer_phone, details_customer, id_customer)
                     
@@ -126,9 +146,32 @@ def update_whatsapp_sent_status(id_customer, result):
         print(f"Error updating WhatsApp status: {e}")
         return None
 
+
+def copy_paste_image_to_clipboard(image_path):
+    if not os.path.exists(image_path):
+        print(f"Error: The file '{image_path}' does not exist.")
+        return
+
+    try:
+        image = Image.open(image_path)
+        output = io.BytesIO()
+        image.convert("RGB").save(output, "BMP")
+        data = output.getvalue()[14:]
+        output.close()
+
+        win32clipboard.OpenClipboard()
+        win32clipboard.EmptyClipboard()
+        win32clipboard.SetClipboardData(win32clipboard.CF_DIB, data)
+        win32clipboard.CloseClipboard()
+        print("Image copied to clipboard successfully.")
+        pyautogui.hotkey('ctrl', 'v')
+        time.sleep(1)
+    except Exception as e:
+        print(f"Error: {e}")
+
 # Main function to monitor the database
 if __name__ == "__main__":
     while True:
         print("Monitoring database for new records...")
         fetch_all_data()  # Fetch and process data
-        time.sleep(5)  # Wait for a certain amount of time before checking again
+        time.sleep(0.5)  # Wait for a certain amount of time before checking again
