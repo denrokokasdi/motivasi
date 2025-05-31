@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import './App.css';
 
 const QuestionPage = () => {
-  const [yaButtonPosition, setYaButtonPosition] = useState({ top: '500px', left: '0px' });
-  const [tidakButtonPosition, setTidakButtonPosition] = useState({ top: '400px', left: '0px' });
+  const [yaButtonPosition, setYaButtonPosition] = useState({ top: '550px', left: '0px' });
+  const [tidakButtonPosition, setTidakButtonPosition] = useState({ top: '600px', left: '0px' });
   const [hoverCount, setHoverCount] = useState(0);
   const [timer, setTimer] = useState(15); // Initialize timer with 10 seconds
   const navigate = useNavigate();
