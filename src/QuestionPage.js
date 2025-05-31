@@ -39,7 +39,8 @@ const QuestionPage = () => {
   return (
     <div className="container" style={{ position: 'relative', height: '100vh' }}>
       <h1 className="title1">Anda Berpuas Hati Dengan Kerja Anda?</h1>
-      <h1 className="title1">Anda Berpuas Hati Dengan Boss?</h1>
+      <h1 className="title1">Anda Berpuas Hati Dengan Boss Anda?</h1>
+      <h1 className="title1">Adakah Anda Bersemangat Pada Hari Ini?</h1>
       <h2 className="title2">Hanya 15 Saat Untuk Menjawab</h2>
       <h3 className="timer">Time left: {timer} seconds</h3> {/* Display the timer */}
       <div className="buttons">
